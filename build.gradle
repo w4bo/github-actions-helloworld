@@ -35,6 +35,9 @@ dependencies {
 test {
     useJUnitPlatform()
     maxHeapSize = '1G'
+    testLogging {
+        showStandardStreams = true
+    }
 }
 
 defaultTasks 'clean', 'build', 'check', 'javadoc', 'shadowJar'
