@@ -1,0 +1,13 @@
+name: Docker
+
+on: [push]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: run my docker image
+        run: |
+          docker build -t customImage .
+          docker run --rm -i customImage
