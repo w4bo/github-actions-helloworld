@@ -9,5 +9,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: run my docker image
         run: |
-          docker build -t customImage .
-          docker run --rm -i customImage
+          docker build -t customimage .
+          docker run --rm -i customimage
