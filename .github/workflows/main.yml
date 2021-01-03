@@ -45,6 +45,7 @@ jobs:
   #         draft: false
   #         prerelease: false
   release:
+    needs: build
     name: Upload Release Asset
     runs-on: ubuntu-latest
     steps:
