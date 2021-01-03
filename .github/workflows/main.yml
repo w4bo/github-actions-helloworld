@@ -1,27 +1,22 @@
-name: HelloWorld
-
+name: CI
 on:
   push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+  schedule:
+    - cron: '0 3 * * SUN'
+  # tags:
+  #   - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Gradle build
-  #       run: |
-  #         chmod +x ./gradlew
-  #         ./gradlew build
   build:
-    # needs: build
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        # os: [windows-2019, ubuntu-20.04, macos-10.15]
+        os: [windows, macos, ubuntu]
+        # jvm_version: [8, 11, 14]
+    runs-on: ${{ matrix.os }}-latest
+    env:
+      # JAVA_VERSION: ${{ matrix.jvm_version }}
+      OS: ${{ matrix.os }}
+      TERM: dumb
     steps:
       - uses: actions/checkout@v2
       - name: Gradle check
@@ -30,19 +25,20 @@ jobs:
           ./gradlew check
         env:
           CI: true
-  release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+  # release:
+  #   needs: build
+  #   name: Create Release
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #     - name: Create Release
+  #       id: create_release
+  #       uses: actions/create-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+  #       with:
+  #         tag_name: ${{ github.ref }}
+  #         release_name: Release ${{ github.ref }}
+  #         draft: false
+  #         prerelease: false
