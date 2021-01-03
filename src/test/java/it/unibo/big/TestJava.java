@@ -13,7 +13,7 @@ public class TestJava {
 
     @Test
     public void test() {
-        Sytem.out.println("Hello " + System.getProperty("os.name") + " from Java " + System.getProperty("java.version"));
+        System.out.println("Hello " + System.getProperty("os.name") + " from Java " + System.getProperty("java.version"));
         assertFalse(aNumber + bNumber == cNumber);
         assertEquals(aNumber + bNumber, cNumber, thr);
     }
