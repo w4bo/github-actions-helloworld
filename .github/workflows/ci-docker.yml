@@ -10,7 +10,7 @@ jobs:
       - name: run my docker image
         run: |
           docker build -t customimage .
-          docker run --rm -it -v $(pwd):/repos customimage
-          cd repos
-          chmod +x ./gradlew
-          ./gradlew
+          # docker run --rm -it -v $(pwd):/repos customimage
+          # cd repos
+          # chmod +x ./gradlew
+          # ./gradlew
