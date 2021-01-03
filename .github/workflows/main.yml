@@ -29,23 +29,6 @@ jobs:
           ./gradlew --info
         env:
           CI: true
-  # release:
-  #   needs: build
-  #   name: Create Release
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v2
-  #     - name: Create Release
-  #       id: create_release
-  #       uses: actions/create-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-  #       with:
-  #         tag_name: ${{ github.ref }}
-  #         release_name: Release ${{ github.ref }}
-  #         draft: false
-  #         prerelease: false
   release:
     needs: build
     name: Upload Release Asset
@@ -60,7 +43,7 @@ jobs:
         run: |
           chmod +x ./gradlew 
           ./gradlew shadowJar
-          zip -r ${{ steps.date.outputs.date }}.zip ./build/libs/*.jar
+          zip -r --junk-paths ${{ steps.date.outputs.date }}.zip ./build/libs/*.jar
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
