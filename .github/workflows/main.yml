@@ -11,10 +11,10 @@ jobs:
     strategy:
       matrix:
         os: [windows, macos, ubuntu]
-        # jvm_version: [8, 11, 14]
+        jvm_version: [8, 11, 14]
     runs-on: ${{ matrix.os }}-latest
     env:
-      # JAVA_VERSION: ${{ matrix.jvm_version }}
+      JAVA_VERSION: ${{ matrix.jvm_version }}
       OS: ${{ matrix.os }}
       TERM: dumb
     steps:
@@ -22,7 +22,7 @@ jobs:
       - name: Gradle check
         run: |
           chmod +x ./gradlew
-          ./gradlew check
+          ./gradlew
         env:
           CI: true
   # release:
