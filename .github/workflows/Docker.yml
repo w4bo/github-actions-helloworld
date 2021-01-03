@@ -10,4 +10,4 @@ jobs:
       - name: run my docker image
         run: |
           docker build -t customimage .
-          docker run --rm -i customimage
+          docker run --rm -i -v $(pwd):/ customimage
