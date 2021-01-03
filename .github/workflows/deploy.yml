@@ -1,13 +1,15 @@
 name: Deploy
 on:
-  workflow_run:
-    workflows: ["CI"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   release:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Upload Release Asset
     runs-on: ubuntu-latest
     steps:
@@ -19,7 +21,7 @@ jobs:
       - name: Build project # This would actually build your project, using zip for an example artifact
         run: |
           chmod +x ./gradlew 
-          ./gradlew shadowJar
+          ./gradlew
           zip -r --junk-paths ${{ steps.date.outputs.date }}.zip ./build/libs/*.jar
       - name: Create Release
         id: create_release
