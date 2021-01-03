@@ -14,12 +14,15 @@ jobs:
         jvm_version: [8, 11, 14]
     runs-on: ${{ matrix.os }}-latest
     env:
-      JAVA_VERSION: ${{ matrix.jvm_version }}
       OS: ${{ matrix.os }}
       TERM: dumb
     steps:
       - uses: actions/checkout@v2
-      - name: Gradle check
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jvm_version }}
+      - name: Gradle
         run: |
           chmod +x ./gradlew
           ./gradlew
