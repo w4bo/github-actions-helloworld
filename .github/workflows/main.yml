@@ -1,0 +1,25 @@
+name: HelloWorld
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Gradle build
+        run: |
+          ./gradlew build
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-2016]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Gradle check
+        run: |
+          ./gradlew check
+        env:
+          CI: true
