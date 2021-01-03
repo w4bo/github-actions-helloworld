@@ -9,6 +9,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Gradle build
         run: |
+          chmod +x ./gradlew
           ./gradlew build
   test:
     needs: build
@@ -20,6 +21,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Gradle check
         run: |
+          chmod +x ./gradlew
           ./gradlew check
         env:
           CI: true
