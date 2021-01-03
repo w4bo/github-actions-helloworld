@@ -25,7 +25,7 @@ jobs:
       - name: Gradle
         run: |
           chmod +x ./gradlew
-          ./gradlew
+          ./gradlew --info
         env:
           CI: true
   # release:
