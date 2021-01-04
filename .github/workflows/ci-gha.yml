@@ -2,10 +2,14 @@ name: CI
 on:
   pull_request:
   push:
+  workflow_run:
+    workflows: ["Deploy", "GradleUp"]
+    # branches: [main]
+    types: 
+      - completed
   schedule:
     - cron: '0 3 * * SUN'
-  # tags:
-  #   - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
 jobs:
   build:
     strategy:
@@ -24,5 +28,4 @@ jobs:
           java-version: ${{ matrix.jvm_version }}
       - name: Gradle
         run: |
-          chmod +x ./gradlew
           ./gradlew --info
