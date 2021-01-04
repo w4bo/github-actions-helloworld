@@ -1,6 +1,7 @@
 name: Docker
 
 on: 
+  pull_request:
   push:
   workflow_run:
     workflows: ["Deploy", "GradleUp"]
@@ -18,5 +19,4 @@ jobs:
           docker build -t customimage .
           # docker run --rm -it -v $(pwd):/repos customimage
           # cd repos
-          # chmod +x ./gradlew
           # ./gradlew
