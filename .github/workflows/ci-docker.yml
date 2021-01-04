@@ -1,6 +1,12 @@
 name: Docker
 
-on: [push]
+on: 
+  push:
+  workflow_run:
+    workflows: ["Deploy", "GradleUp"]
+    # branches: [main]
+    types: 
+      - completed
 
 jobs:
   docker:
